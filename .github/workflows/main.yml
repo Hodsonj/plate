@@ -2,7 +2,7 @@ name: Check Plate Availability
 
 on:
   schedule:
-    - cron: "75 17,20 * * *"
+    - cron: "0 17,21 * * *"
 
 jobs:
   check_plate:
