@@ -1,7 +1,8 @@
 name: Check Plate Availability
 
 on:
-  workflow_dispatch:
+  schedule:
+    - cron: "0 17,21 * * *"
 
 jobs:
   check_plate:

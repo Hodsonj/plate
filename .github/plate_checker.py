@@ -48,8 +48,7 @@ def check_plate_availability(plate_number):
 
 
 # Loop to check plates 1 to 100
-#for i in range(0, 101):
- #   plate_number = str(i)  # Format the plate number as 001, 002, ..., 100
- #   check_plate_availability(plate_number)
-check_plate_availability("TOMHOMO")
+for i in range(0, 101):
+    plate_number = str(i)  # Format the plate number as 001, 002, ..., 100
+    check_plate_availability(plate_number)
 
