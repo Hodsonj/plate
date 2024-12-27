@@ -39,7 +39,7 @@ def check_plate_availability(plate_number):
         # Check the availability status based on the response
         if "available" in response.text:
             print(f"Plate {plate_number} is available!")
-            send_slack_notification(f"License plate {plate_number} is available!")
+            send_slack_notification(f"License plate: {plate_number} is available!")
         else:
             print(f"Not available {plate_number}.")
     else:
@@ -54,4 +54,4 @@ for i in range(0, 101):
     check_plate_availability(plate_number)
 
 
-time.sleep(120)
+time.sleep(840)
