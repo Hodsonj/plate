@@ -54,4 +54,4 @@ for i in range(0, 101):
     check_plate_availability(plate_number)
 
 
-time.sleep(840)
+time.sleep(300)
