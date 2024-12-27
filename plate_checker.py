@@ -1,6 +1,5 @@
 import requests
-import smtplib
-
+import time
 
 
 SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
@@ -50,8 +49,9 @@ def check_plate_availability(plate_number):
 
 
 # Loop to check plates 1 to 100
-#for i in range(0, 101):
-#    plate_number = f"{i:03}"  # Format the plate number as 001, 002, ..., 100
-#    check_plate_availability(plate_number)
-check_plate_availability("homotar")
+for i in range(0, 101):
+    plate_number = str(i)  # Format the plate number as 001, 002, ..., 100
+    check_plate_availability(plate_number)
 
+
+time.sleep(120)
