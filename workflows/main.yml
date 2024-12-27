@@ -3,6 +3,7 @@ name: Check Plate Availability
 on:
   schedule:
     - cron: "0 17,21 * * *"
+  workflow_dispach:
 
 jobs:
   check_plate:
@@ -24,4 +25,4 @@ jobs:
         env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
-          python .github/plate_checker.py
+          python plate_checker.py
