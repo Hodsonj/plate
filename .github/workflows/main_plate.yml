@@ -1,0 +1,27 @@
+name: Check Plate Availability
+
+on:
+  schedule:
+    - cron: "18 21 * * *"
+
+jobs:
+  check_plate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      - name: Run the plate checker script
+        env:
+            SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          python .github/plate_checker.py
