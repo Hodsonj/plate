@@ -2,7 +2,7 @@ name: Check Plate Availability
 
 on:
   schedule:
-    - cron: "15 20 * * *" # Runs at 7:50 PM UTC (2:50 PM EST)
+    - cron: "03 20 * * *" # Runs at 7:50 PM UTC (2:50 PM EST)
 
 jobs:
   check_plate:
