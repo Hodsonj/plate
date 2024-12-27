@@ -1,11 +1,10 @@
 import requests
+from flask import Flask, jsonify
 import time
-from flask import Flask
-import threading
 
+app = Flask(__name__)
 
 SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
-
 
 # Define the base URL for the availability check
 base_url = "https://bmvonline.dps.ohio.gov/bmvonline/oplates/PlatePreview"
@@ -14,8 +13,6 @@ base_url = "https://bmvonline.dps.ohio.gov/bmvonline/oplates/PlatePreview"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
 }
-
-app = Flask(__name__)
 
 def send_slack_notification(message):
     payload = {"text": message}
@@ -49,23 +46,26 @@ def check_plate_availability(plate_number):
     else:
         print(f"Request for plate {plate_number} failed with status code: {response.status_code}")
 
-
-# Function to check plates 1 to 100
+@app.route('/check-plates', methods=['GET'])
 def check_plates():
     # Loop to check plates 1 to 100
     for i in range(0, 101):
         plate_number = str(i)  # Format the plate number as 001, 002, ..., 100
         check_plate_availability(plate_number)
-        time.sleep(10)  # Add a delay between requests to avoid overwhelming the server
 
-# Route to trigger the plate checking process
-@app.route("/check-plates")
-def check_plates_route():
-    # Start the plate checking in a separate thread so it doesn't block the server
-    threading.Thread(target=check_plates).start()
-    return "Plate availability check started!"
+    return jsonify({"message": "Plate checking complete!"}), 200
 
+def run_periodically():
+    while True:
+        # Call the check_plates function
+        with app.app_context():
+            check_plates()
 
-if __name__ == "__main__":
-    # Run the Flask app on the port defined by Render
-    app.run(host="0.0.0.0", port=5000)  # Use the port that Render assigns (5000 for local development, but Render will override it)
+        # Sleep for 14 minutes (840 seconds)
+        time.sleep(840)
+
+if __name__ == '__main__':
+    # Start the periodic task in the background
+    import threading
+    threading.Thread(target=run_periodically, daemon=True).start()
+    app.run(host='0.0.0.0', port=5000)
