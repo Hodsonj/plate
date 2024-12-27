@@ -1,8 +1,7 @@
 name: Check Plate Availability
 
 on:
-  schedule:
-    - cron: "36 19 * * *" # Run at 00:00 every day (midnight) 
+  workflow_dispatch:  # This triggers the workflow manually
 
 jobs:
   check_plate:
