@@ -1,23 +1,25 @@
 name: Check Plate Availability
 
 on:
-  workflow_dispatch:  # This triggers the workflow manually
+  schedule:
+    - cron: "50 19 * * *" # Runs at 7:50 PM UTC (2:50 PM EST)
 
 jobs:
   check_plate:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.x' 
+          python-version: '3.x'
 
       - name: Install dependencies
         run: |
           pip install requests
 
-      - name: Run your script
+      - name: Run the plate checker script
         run: |
           python .github/plate_checker.py
