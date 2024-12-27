@@ -1,8 +1,7 @@
 import requests
-import time
+import os 
 
-
-SLACK_WEBHOOK_URL = "https://hooks.slack.com/services/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"
+SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")
 
 
 # Define the base URL for the availability check
